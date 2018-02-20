@@ -25,7 +25,8 @@
         
         $('#' + patter + '').css("display", "none");
         $('#' + patter + '').append('<div id="opct"></div>');
-        $('#opct').css("background", settings.backgroundColor);
+        $('#' + patter + ' #opct').css("background", settings.backgroundColor);
+        //$('#opct').css("background", settings.backgroundColor);
         $('#' + patter + '').css("z-index", "100001");
         $('#' + patter + '').css("position", "fixed")
         $('#' + patter + '').css("top", "0");
@@ -36,14 +37,15 @@
         $('#' + patter + '').css("text-align", "center");
         $('#' + patter + '').css("background", "none");
         $('#' + patter + '').css("vertical-align", "vertical-align");
-        $("#videCont").css("z-index", "100002");
+        $('#' + patter + ' #videCont').css("z-index", "100002");
+        //$("#videCont").css("z-index", "100002");
         $('#' + patter + '').append('<div id="closer_videopopup">&otimes;</div>');
         $("#" + settings.opener + "").on('click', function () {
             $('#' + patter + "").show();
             $('#'+settings.idvideo+'').trigger('play');
 
         });
-        $("#closer_videopopup").on('click', function () {
+        $('#' + patter + ' #closer_videopopup').on('click', function () {
             if(settings.pausevideo==true){
                     $('#'+settings.idvideo+'').trigger('pause');
                 }else{

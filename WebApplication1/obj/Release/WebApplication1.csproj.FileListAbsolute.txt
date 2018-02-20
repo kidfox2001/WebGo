@@ -16,3 +16,10 @@ C:\test\WebApplication1\WebApplication1\obj\Release\WebApplication1.csprojResolv
 C:\test\WebApplication1\WebApplication1\obj\Release\WebApplication1.csproj.CoreCompileInputs.cache
 C:\test\WebApplication1\WebApplication1\obj\Release\WebApplication1.dll
 C:\test\WebApplication1\WebApplication1\obj\Release\WebApplication1.pdb
+C:\test\WebTree\WebApplication1\bin\WebApplication1.dll.config
+C:\test\WebTree\WebApplication1\bin\WebApplication1.dll
+C:\test\WebTree\WebApplication1\bin\WebApplication1.pdb
+C:\test\WebTree\WebApplication1\obj\Release\WebApplication1.csprojResolveAssemblyReference.cache
+C:\test\WebTree\WebApplication1\obj\Release\WebApplication1.csproj.CoreCompileInputs.cache
+C:\test\WebTree\WebApplication1\obj\Release\WebApplication1.dll
+C:\test\WebTree\WebApplication1\obj\Release\WebApplication1.pdb
