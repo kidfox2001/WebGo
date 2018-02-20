@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="scripts/go-debug.js"></script>
+    <script src="scripts/treeSymbolControl.js"></script>
+
+    <script>
+
+
+        //focustId : id ที่เลือกดูอยู่
+        // confirmIds :  id ที่โดนยืนยันแล้วว่าติดเชื่อ  เป็น array
+        // data  //
+        // key: id แต่ละโหนด
+        // n: ชื่อ นามสกุล และ อายุ (มากกว่าหนึ่งปี เป็นขวบ, น้อยกว่าปี บอกเป็น เดือน สัปดาห์)
+        // s: เพศ ("M" หมายถึง ผู้ชาย ,"F" หมายถึง ผู้หญิ่ง,N หมายถึง ยังไม่ทราบเพศ)
+        // m: รหัสพ่อ
+        // f: รหัสแม่
+        // ux: รหัสคุ่แต่งงาน
+        // a: สถานะโรค มีทั้งหมด 4 แบบคือ 
+        /// 1. ไม่มีโรค (ไม่ต้องระบุ Prop นี้)
+        /// 2. มีหนึ่งโรค (["DE1", "DE2", "DE3", "DE4"])
+        /// 2. มีสองโรค (["TW1", "TW2", "TW3", "TW4"]) 
+        /// 3. มีสามโรค (["TH1", "TH2", "TH3"]) 
+        /// 4. มีสี่โรค (["FO1", "FO2", "FO3", "FO4"]) 
+        /// 5. ตาย (["S", "B1", "B2", "B3", "B4"]) 
+
+        //data = {
+        //    focusId: 3,
+        //    confirmIds: [3, 4, -50, -51, 5, 6, 1, 2, 7, 9],
+        //    deads: [7,-50,5,9],
+        //    data:
+        //        [
+        //        { key: -50, n: "เทพสุธา ธนันสิดากร 39 y ", s: "M", ux: -51, a: ["black", "black", "red", "red", "S"], b: ["c"] }
+        //        ,{ key: -51, n: "สมหญิง ธนัน 34 y ", s: "F", a: ["S"] }
+        //        ,{ key: 3, n: "พรรณพรรษ นันท์วิชกรณ์ 24 y", s: "F", m: -50, f: -51, a: ["FO1", "FO2", "FO3", "FO4", "B1", "B2", "B3", "B4"] }
+        //        ,{ key: 4, n: "ภัณณิพงศ์ ธนันสิดากร 27 y", s: "M", ux: 3, a: ["TH1", "TH2", "TH3"] }
+        //        ,{ key: 5, n: "พงษ์ธณัฐ  ธนันสิดากร 4 y", s: "M", m: 3, f: 4, a: ["FO1", "FO2", "FO3", "FO4"] }
+        //        , { key: 6, n: "นารีรัตน์ ธนันสิดากร 1 m 1 w", s: "N", m: 3, f: 4 }
+        //         , { key: 9, n: "ปนี มังสาหารxxxxxxxxxxxxxxxxxxxxxxxx", s: "N", m: 3, f: 4 }
+        //        ,{ key: 1, n: "ปัณน์ญะพัทธ์ ธนันสิดากร 22 y", s: "M", m: -50, f: -51, a: ["TW1", "TW2", "TW3", "TW4", "B1", "B2", "B3", "B4"] }
+        //        ,{ key: 2, n: "มณจนาภัทธ์ ธนันสิดากร 20 y",ux:1, s: "F", m: -50, f: -51, a: ["DE1", "DE2", "DE3", "DE4", "S"] }
+        //        ,{ key: 7, n: "ฐิติพงษ์ หาญวงศ์ไพบูลย์", s: "M", m: 1, f: 2, a: ["TH1", "TH2", "TH3"] }
+        //        ]
+        //};
+
+        data = {
+            focusId: 8,
+            deads: [
+                89
+            ],
+            data: [
+                {
+                    key: 85,
+                    n: "85",
+                    s: "M",
+                    ux: 86
+                },
+                  {
+                      key: 86,
+                      n: "86",
+                      s: "F"
+                  },
+                  {
+                      key: 84,
+                      n: "สมชาย กรุงเทพมหาณคร",
+                      s: "M"
+                  },
+                {
+                    key: 82,
+                    n: "สมหญิง สุราชธานี",
+                    s: "F",
+                    m: 85,
+                    f: 86,
+                    ux: 84
+                },
+                {
+                    key: 83,
+                    n: "5 _1 56 y",
+                    s: "M",
+                    m: 84,
+                    f: 82
+                },
+                 {
+                     key: 132,
+                     n: "345 _12 21 y",
+                     s: "M",
+                     m: 84,
+                     f: 82
+                 },
+                {
+                    key: 8,
+                    n: "4_1 26 y",
+                    s: "F",
+                    m: 84,
+                    f: 82
+                },
+
+                {
+                    key: 92,
+                    n: "cxv xcv 58 y",
+                    s: "M",
+                    m: 55,
+                    f: 94,
+                    ux: 8
+                },
+                  {
+                      key: 55,
+                      n: "ญี่ปุ่น โตเกียว",
+                      s: "M",
+                      ux: 94
+                  },
+                {
+                    key: 94,
+                    n: "มงคล ธนบุรีคาเฟ่",
+                    s: "F"
+                },
+
+
+
+                {
+                    key: 87,
+                    n: "โดนัท พารากอน",
+                    s: "F",
+                    m: 85,
+                    f: 86,
+                    ux: 88
+                },
+                {
+                    key: 88,
+                    n: "เซ็ลทรัล ปิ่นเกล้า",
+                    s: "M"
+                },
+                {
+                    key: 90,
+                    n: "15 _3 59 y",
+                    s: "F",
+                    m: 88,
+                    f: 87,
+                    ux: 91
+                },
+                {
+                    key: 89,
+                    n: "72 _7 85 y",
+                    s: "M",
+                    m: 88,
+                    f: 87
+                },
+                {
+                    key: 91,
+                    n: "18 _3 69 y",
+                    s: "M"
+                }
+            ],
+            confirmIds: [
+                8
+            ]
+        };
+        $(function () {
+            $("#myDiagramDiv").treeSymbolControl({ items: data });
+        })
+
+
+      
+    </script>
+
+</head>
+<body>
+
+    <!-- The DIV for a Diagram needs an explicit size or else we will not see anything.
+     In this case we also add a background color so we can see that area. -->
+    <div id="myDiagramDiv"
+        style="width: auto; height: 100vh; background-color: #DAE4E4;">
+    </div>
+</body>
+</html>

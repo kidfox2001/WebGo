@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title></title>
+    <script src="scripts/jquery-1.9.1.min.js"></script>
+    <script src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="scripts/primitives.min.js"></script>
+    <script src="scripts/jqGlobal.js"></script>
+    <script src="scripts/treeControl.js"></script>
+    <script src="scripts/jquery.blockUI.js"></script>
+    <script src="scripts/view.js"></script>
+    <script src="scripts/json_parse.js"></script>
+    <script src="scripts/jquery.uniform.min.js"></script>
+
+    <link href="styles/primitives.latest.css" rel="stylesheet" />
+    <link href="styles/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" />
+         <link href="styles/uniform.default.min.css" rel="stylesheet" />
+
+    <script>
+        var imageMen = "/imagesTest/men.png";
+        var imageWomen = "/imagesTest/women.png";
+        var colorSick = primitives.common.Colors.Orange;
+        var colorWomen = primitives.common.Colors.Pink;
+        var items = null;
+
+        $(document).ready(function () {
+            //var parents_id = [66, 67];
+            //var sons_id = [];
+            //var spouses_id = [80];
+            //var relatives_id = [65, 68];
+            //var sex = "male";
+            //var age = 24;
+            //var first_name = "Skykick ";
+            //var last_name = "Ranger";
+            //var type_of_relationship = "ลูก";
+            //var person_citizenID = "1103300053888";
+            //var person_alive = "1";
+            //var person_birth_date = "1990-10-11";
+            //$.ajax({
+            //    url: 'http://www.cavaros.com/health_system/public/add_person_api',
+            //    contentType: "application/x-www-form-urlencoded;charset=utf-8", 
+            //    cache: false,
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: "sex=" + sex + "&age=" + age + "&first_name=" + first_name + "&last_name=" + last_name +
+            //        "&parents_id=" + JSON.stringify(parents_id) + "&spouses_id=" + JSON.stringify(spouses_id) +
+            //        "&sons_id=" + JSON.stringify(sons_id) + "&relatives_id=" + JSON.stringify(relatives_id) +
+            //        "&type_of_relationship=" + type_of_relationship + "&person_citizenID=" + person_citizenID +
+            //        "&person_alive=" + person_alive + "&person_birth_date=" + person_birth_date,
+            //    success: function (msg) {
+            //        $('#basicdiagram').html(msg['status'] + "<br>" + msg['message']);
+            //    },
+            //    error: function (xhr, ajaxOptions, thrownError) { //Add these parameters to display the required response
+            //        alert(xhr.status);
+            //        alert(xhr.responseText);
+            //    }
+            //});
+
+            //$.ajax({
+            //    url: 'http://www.cavaros.com/health_system/public/get_tree_api/66',
+            //    dataType: 'json',
+            //    type: 'GET',
+            //    success: function (data, textStatus, jQxhr) {
+
+            //        $("#basicdiagram").treeControl({
+            //            url: 'http://www.cavaros.com/health_system/public',
+            //            mainId: "66",
+            //            mainReId : "66",
+            //            data: data.person,
+            //            onCancelPersonDetail: function () {
+            //                $.unblockUI();
+            //            },
+            //            onOkPersonDetail: function (obj) {
+            //                $("#basicdiagram").reCreate(obj);
+            //                $.unblockUI();
+            //            },
+            //            onReturnPage: function () {
+            //                alert("ย้อนกลับ");
+            //            }
+            //        });
+
+            //        $uniformed = $("#btnReturn,#btnUndoDelete").not(".skipThese");
+            //        $uniformed.uniform();
+            //        $("#uniform-btnReturn").css("position", "fixed");
+            //    },
+            //    error: function (data, textStatus, jQxhr) {
+
+            //    },
+            //});
+
+          
+
+            items = [
+                           {
+                               id: 0
+                               , spouses: [3]
+                               , title: "จิรายุ เกาะแก้ว"
+                               , description: "อายุ 44, เบอร์โทร:(123) 456-78-90"
+                               , image: "/imagesTest/m1.jpg"
+                               , templateName: "contactTemplate"
+                           },
+                           {
+                               id: 1
+                               , parents: [0, 3]
+                               , title: "นุ่น เมืองสิง"
+                               , description: "อายุ 22"
+                               , image: "/imagesTest/w2.jpg"
+                               , groupTitle: "ติดเชื้อ"
+                               , itemTitleColor: colorWomen
+                               , groupTitleColor: colorSick
+                           },
+                           {
+                               id: 2
+                               , parents: [0, 3]
+                               , title: "สิงโต เกาะแก้ว"
+                               , description: "อายุ 12"
+                               , image: "/imagesTest/a.jpg"
+                           },
+                           {
+                               id: 3
+                               , title: "อั้ม เกาะแก้ว"
+                               , description: "อายุ 40, เบาหวาน, ความดันสูง"
+                               , image: "/imagesTest/w1.jpg"
+                               , groupTitle: "ติดเชื้อ"
+                               , itemTitleColor: colorWomen
+                               , groupTitleColor: colorSick
+                           },
+                           {
+                               id: 4
+                               , title: "หลุยส์ เมืองสิง"
+                               , spouses: [1]
+                               , parents: [5, 6]
+                               , description: "อายุ 23"
+                               , image: imageMen
+                           },
+                           {
+                               id: 5
+                                , spouses: [6]
+                                , title: "ณเดชน์ เมืองสิง"
+                                , description: "อายุ 65"
+                                , image: imageMen
+                                , templateName: "contactTemplate"
+                           },
+                            {
+                                id: 6
+                                , title: "วุ้นเส้น เมืองสิง"
+                                , description: "อายุ 60"
+                                , image: imageWomen
+                                , itemTitleColor: colorWomen
+                            },
+                            {
+                                id: 7
+                                , parents: [4, 1]
+                                , title: "วุวู้ดดี้ เมืองสิง"
+                                , description: "อายุ 5"
+                                , image: imageMen
+                                , groupTitle: "ติดเชื้อ"
+                                , groupTitleColor: colorSick
+                            },
+                            {
+                                id: 8
+                                , parents: [4, 1]
+                                , title: "หมาก เมืองสิง"
+                                , description: "อายุ 7"
+                                , image: imageMen
+                                , groupTitleColor: colorSick
+                            },
+                            {
+                                id: 9
+                                , parents: [4, 1]
+                                , title: "ญาญ่า เมืองสิง"
+                                , description: "อายุ 9"
+                                , image: imageWomen
+                                , groupTitleColor: colorSick
+                                , itemTitleColor: colorWomen
+                            }
+      
+      
+            ];
+      
+           $("#basicdiagram").treeControl({ data: items });
+        });
+  </script>
+
+    
+    <style type="text/css">
+        html, body
+        {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body >
+   
+  <!--  <div style="position:fixed; ">
+        <div>
+            <input id="btnReturn" type="button" value="ย้อนกลับ" style="width:120px; position:relative;" /></div>
+        <div style="position:relative; left:150px">
+            <input id="btnUndoDelete" type="button" value="ยกเลิกการลบ" style="width:120px; position:relative;"/>
+        </div>
+    </div>-->
+    <div id="basicdiagram" style="width: auto;  height:100vh; border-style: dotted; border-width: 1px;" >
+      
+
+    </div>
+</body>
+
+</html>

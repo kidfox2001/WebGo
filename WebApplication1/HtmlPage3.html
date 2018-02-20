@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="scripts/jquery-1.9.1.min.js"></script>
+    <!--<script src="scripts/jquery.orgchart.min.js"></script>-->
+    <script src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="scripts/jquery.orgchart.js"></script>
+
+    <link rel="stylesheet" href="styles/jquery.orgchart.css" />
+    <link href="styles/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" />
+
+    <script>
+
+        $(function () {
+            //$("#dvHead").text(" test ");
+
+            $("#DivProcess").dialog({
+                autoOpen: false,
+                resizable: true,
+                show: 'fade',
+                hide: 'fade',
+                width: 500,
+                height: 300,
+                modal: true
+            });
+
+
+            createOrganizeUl(testOrg);
+
+            $("#org").orgChart({
+                container: $("#main"),
+                nodeClicked: onNodeClicked
+            });
+        });
+
+        function onNodeClicked() {
+            $("#DivProcess").dialog("open");
+        }
+
+        function createOrganizeUl(dataOrg) {
+            //var headOrg = $.map(dataOrg, function (val) {
+            //    return val.parent == null ? val : null;
+            //});
+
+            var headOrg = dataOrg.filterObjects("parent", null)
+
+            if (headOrg != null) {
+                var head = headOrg[0];
+                var body = $('body');
+                var mainUl = $('<ul id="org" style="display: none"></ul>');
+                var headUl = $("<li>").text(head.name);
+                var nodes = processNodeUl(dataOrg.filterObjects("parent", head.id), dataOrg);
+
+                body.append(mainUl.append(headUl.append(nodes)));
+            }
+        }
+
+        function processNodeUl(subDataOrg, dataOrgs) {
+            var nodeUl = $("<ul>");
+            for (var i = 0; i < subDataOrg.length; i++) {
+                var childData = dataOrgs.filterObjects("parent", subDataOrg[i].id);
+                var childResult;
+
+                if (childData.length > 0) {
+                    childResult = processNodeUl(childData, dataOrgs);
+                    tagLi.append(nodes);
+                    nodeUl.append(tagLi);
+                }
+                else {
+                    nodeUl.append(tagLi);
+                }
+            }
+            if (subDataOrg.length > 0) {
+                return nodeUl;
+            }
+        }
+
+        //function processNodeUl(subDataOrg, dataOrgs) {
+        //    var nodeUl = $("<ul>");
+        //    for (var i = 0; i < subDataOrg.length; i++) {
+        //        var childData = dataOrgs.filterObjects("parent", subDataOrg[i].id);
+        //        var tagLi = "";
+
+        //        if (subDataOrg[i].partner == null) {
+        //            tagLi = $("<li>").text(subDataOrg[i].name);
+        //        }
+        //        else {
+        //            tagLi = $("<adjunct>").text(subDataOrg[i].name);
+        //        }
+
+        //        if (childData.length > 0) {
+        //            var nodes = processNodeUl(childData, dataOrgs);
+        //            tagLi.append(nodes);
+        //            nodeUl.append(tagLi);
+        //        }
+        //        else {
+        //            nodeUl.append(tagLi);
+        //        }
+        //    }
+        //    if (subDataOrg.length > 0) {
+        //        return nodeUl;
+        //    }
+        //}
+
+        Array.prototype.filterObjects = function (key, value) {
+            return this.filter(function (x) { return x[key] === value; })
+        }
+
+        var testOrg = [
+            {
+                id: 1,
+                parent: null,
+                partner: null,
+                name: "dad"
+            },
+            {
+                id: 2,
+                parent: 1,
+                partner: 1,
+                name: "mom"
+            },
+            {
+                id: 3,
+                parent: 1,
+                partner: null,
+                name: "ter"
+            },
+            {
+                id: 4,
+                parent: 1,
+                partner: null,
+                name: "moo"
+            },
+            {
+                id: 5,
+                parent: 1,
+                partner: null,
+                name: "nui"
+            },
+            {
+                id: 6,
+                parent: 3,
+                partner: null,
+                name: "near"
+            },
+            {
+                id: 7,
+                parent: 4,
+                partner: null,
+                name: "ชะเอม"
+            },
+            {
+                id: 8,
+                parent: 4,
+                partner: null,
+                name: "ลันตา"
+            }
+        ]
+
+    </script>
+
+</head>
+<body>
+    <div id='DivProcess' title='Test'>
+        <div style='font-size: 20px; width: 450px; height: 140px; display: table-cell; vertical-align: middle; text-align: center'>
+        </div>
+    </div>
+    <div id="main"></div>
+
+
+    <!--<ul id="org" style="display: none">
+        <li>me</li>
+    </ul>-->
+
+</body>
+</html>

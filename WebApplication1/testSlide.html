@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="scripts/jquery-1.9.1.min.js"></script>
+    <script src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="js/scripts-slideshow.js"></script>
+    <script src="js/videopopup.js"></script>
+
+    <link href="styles/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" />
+    <link href="css/style-slideshow.css" rel="stylesheet" />
+    <link href="css/videopopup.css" rel="stylesheet" />
+    <title></title>
+</head>
+<body>
+    <div class="main-branner">
+        <div id="slide-holder">
+            <div id="pre-slide">
+
+            </div>
+            <div id="next-slide">
+
+            </div>
+            <div id="slide-runner">
+                <a href="javascript:void(0)" id="video1"><img id="slide-img-1" src="images/DW/slider/slide-img-1.jpg" class="slide" alt="" /></a>
+                <a href=""><img id="slide-img-2" src="images/DW/slider/slide-img-2.jpg" class="slide" alt="" /></a>
+                <a href=""><img id="slide-img-3" src="images/DW/slider/slide-img-3.jpg" class="slide" alt="" /></a>
+                <div id="slide-controls">
+                    <p id="slide-nav"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        if (!window.slider)
+            var slider = {}; slider.data = [
+                { "id": "slide-img-1", "client": "nature beauty", "desc": "" },
+                { "id": "slide-img-2", "client": "nature beauty", "desc": "" },
+                { "id": "slide-img-3", "client": "nature beauty", "desc": "" }
+            ];
+    </script>
+
+
+    <!--xxxxxxxxxxxxx-->
+
+
+    <!--<a href="javascript:void(0)" id="video1">-- open video --</a>-->
+    <div id="vidBox">
+        <div id="videCont">
+            <video autoplay id="v1" loop controls>
+                <source src="Video/movie1.mp4" type="video/webm">
+                <!--<source src="Video/movie1.mp4" type="video/mp4">-->
+            </video>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#vidBox').VideoPopUp({
+                backgroundColor: "#17212a",
+                opener: "video1",
+                maxweight: "340",
+                idvideo: "v1"
+            });
+        });
+    </script>
+    <!--<script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36251023-1']);
+        _gaq.push(['_setDomainName', 'jqueryscript.net']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>-->
+
+    <!--<div id="vidBox">
+        <div id="videCont">
+            <video autoplay id="demo" loop controls>
+                <source src="Video/movie1.mp4" type="video/webm">
+                <source src="Video/movie1.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <a href="javascript:void(0)" id="video-trigger">Open</a>
+
+
+    <script type="text/javascript">
+            $(function () {
+                $('#vidBox').VideoPopUp({
+                    opener: "video-trigger"
+                    idvideo: "demo"
+                    backgroundColor: "#000000"
+                    pausevideo: true
+                    maxweight: "640"
+
+
+                });
+            });
+    </script>-->
+
+</body>
+</html>

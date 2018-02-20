@@ -1,0 +1,416 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="scripts/jquery-1.9.1.min.js"></script>
+    <script src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="scripts/primitives.min.js"></script>
+    <script src="scripts/jqGlobal.js"></script>
+    <script src="scripts/treeControl.js"></script>
+    <script src="scripts/jquery.blockUI.js"></script>
+    <script src="scripts/view.js"></script>
+    <script src="scripts/json_parse.js"></script>
+
+    <link href="styles/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" />
+    <link href="styles/primitives.latest.css" rel="stylesheet" />
+
+    <script>
+
+        var items2 = [];
+        var imageMen = "/imagesTest/men.png";
+        var imageWomen = "/imagesTest/women.png";
+        var colorSick = primitives.common.Colors.Orange;
+        var colorWomen = primitives.common.Colors.Pink;
+
+
+
+        $(function () {
+        
+            items2 = [
+                           {
+                               id: 0
+                               , spouses: [3]
+                               , title: "จิรายุ เกาะแก้ว"
+                               , description: "อายุ 44, เบอร์โทร:(123) 456-78-90"
+                               , image: "/imagesTest/m1.jpg"
+                               , templateName: "contactTemplate"
+                           },
+                           {
+                               id: 1
+                               , parents: [0, 3]
+                               , title: "นุ่น เมืองสิง"
+                               , description: "อายุ 22"
+                               , image: "/imagesTest/w2.jpg"
+                               , groupTitle: "ติดเชื้อ"
+                               , itemTitleColor: colorWomen
+                               , groupTitleColor: colorSick
+                           },
+                           {
+                               id: 2
+                               , parents: [0, 3]
+                               , title: "สิงโต เกาะแก้ว"
+                               , description: "อายุ 12"
+                               , image: "/imagesTest/a.jpg"
+                           },
+                           {
+                               id: 3
+                               , title: "อั้ม เกาะแก้ว"
+                               , description: "อายุ 40, เบาหวาน, ความดันสูง"
+                               , image: "/imagesTest/w1.jpg"
+                               , groupTitle: "ติดเชื้อ"
+                               , itemTitleColor: colorWomen
+                               , groupTitleColor: colorSick
+                           },
+                           {
+                               id: 4
+                               , title: "หลุยส์ เมืองสิง"
+                               , spouses: [1]
+                               , parents: [5, 6]
+                               , description: "อายุ 23"
+                               , image: imageMen
+                           },
+                           {
+                               id: 5
+                                , spouses: [6]
+                                , title: "ณเดชน์ เมืองสิง"
+                                , description: "อายุ 65"
+                                , image: imageMen
+                                , templateName: "contactTemplate"
+                           },
+                            {
+                                id: 6
+                                , title: "วุ้นเส้น เมืองสิง"
+                                , description: "อายุ 60"
+                                , image: imageWomen
+                                , itemTitleColor: colorWomen
+                            },
+                            {
+                                id: 7
+                                , parents: [4, 1]
+                                , title: "วุวู้ดดี้ เมืองสิง"
+                                , description: "อายุ 5"
+                                , image: imageMen
+                                , groupTitle: "ติดเชื้อ"
+                                , groupTitleColor: colorSick
+                            },
+                            {
+                                id: 8
+                                , parents: [4, 1]
+                                , title: "หมาก เมืองสิง"
+                                , description: "อายุ 7"
+                                , image: imageMen
+                                , groupTitleColor: colorSick
+                            },
+                            {
+                                id: 9
+                                , parents: [4, 1]
+                                , title: "ญาญ่า เมืองสิง"
+                                , description: "อายุ 9"
+                                , image: imageWomen
+                                , groupTitleColor: colorSick
+                                , itemTitleColor: colorWomen
+                            }
+
+
+            ];
+
+
+            createOrg();
+
+            $("#btTestAjax").click(function () {
+
+                //$.get("www.cavaros.com/health_system/public/get_tree", function (data, status) {
+                //    alert("Data: " + data + "\nStatus: " + status);
+                //});
+
+
+                $.ajax({
+                    url: 'http://www.cavaros.com/health_system/public/get_tree/1103300053746',
+                    dataType: 'text',
+                    type: 'get',
+                    contentType: 'application/json',
+                    crossDomain: true,
+                    dataType: 'jsonp',
+                    success: function (data, textStatus, jQxhr) {
+                        console.log(JSON.stringify(data));
+                    }
+                });
+
+
+                //$.ajax({
+                //    url: 'http://www.cavaros.com/health_system/public/get_tree/1103300053746',
+                //    dataType: 'text',
+                //    type: 'post',
+                //    contentType: 'application/x-www-form-urlencoded',
+                //    data: $(this).serialize(),
+                //    success: function (data, textStatus, jQxhr) {
+                //        $('#response pre').html(data);
+                //    },
+                //    error: function (jqXhr, textStatus, errorThrown) {
+                //        console.log(errorThrown);
+                //    }
+                //});
+
+                //$.ajax({
+                //    type: 'GET',
+                //    url: 'http://www.cavaros.com/health_system/public/get_tree/1103300053746',
+                //    async: true,
+                //    contentType: "application/json; charset=utf-8",
+                //    dataType: "json",
+                //    success: function (msg) {
+                //        var result = msg.d;
+                //        if (result !== null) {
+                //            dummyItemUitId = result.itemunit_id;
+                //        }
+                //    }
+                //})
+            });
+
+            $("#btPartner").click(function () {
+                items2.push(genPartner($("#divAdd").data("id"), $("#divAdd").data("name")));
+                //genPartner($(this).data("id"))
+                $("#basicdiagram").famDiagram({
+                    items: items2
+                });
+                $("#basicdiagram").famDiagram("update", /*Refresh: use fast refresh to update chart*/ primitives.orgdiagram.UpdateMode.Refresh);
+                toggleDivAdd();
+            });
+
+            $("#btChild").click(function () {
+                items2.push(genChild($("#divAdd").data("id"), $("#divAdd").data("name")));
+                //genPartner($(this).data("id"))
+                $("#basicdiagram").famDiagram({
+                    items: items2
+                });
+                $("#basicdiagram").famDiagram("update", /*Refresh: use fast refresh to update chart*/ primitives.orgdiagram.UpdateMode.Refresh);
+                toggleDivAdd();
+            });
+
+            $("#btRelatives").click(function () {
+                items2.push(genRelatives($("#divAdd").data("id"), $("#divAdd").data("name")));
+                //genPartner($(this).data("id"))
+                $("#basicdiagram").famDiagram({
+                    items: items2
+                });
+                $("#basicdiagram").famDiagram("update", /*Refresh: use fast refresh to update chart*/ primitives.orgdiagram.UpdateMode.Refresh);
+                toggleDivAdd();
+            });
+
+            $("#btParent").click(function () {
+                items2.push(genParent($("#divAdd").data("id"), $("#divAdd").data("name")));
+                //genPartner($(this).data("id"))
+                $("#basicdiagram").famDiagram({
+                    items: items2
+                });
+                $("#basicdiagram").famDiagram("update", /*Refresh: use fast refresh to update chart*/ primitives.orgdiagram.UpdateMode.Refresh);
+                toggleDivAdd();
+            });
+
+            //เพิ่ม แฟน ลูก พ่อแม่ พี่ น้อง ติดเชื้อ
+
+        });
+
+
+        function createOrg() {
+            var buttons = [];
+            buttons.push(new primitives.orgdiagram.ButtonConfig("add", "ui-icon-plus", "Add"));
+            buttons.push(new primitives.orgdiagram.ButtonConfig("edit", "ui-icon-pencil", "Edit"));
+            buttons.push(new primitives.orgdiagram.ButtonConfig("delete", "ui-icon-close", "Delete"));
+            buttons.push(new primitives.orgdiagram.ButtonConfig("properties", " ui-icon-info", "Info"));
+
+            var options = new primitives.orgdiagram.Config();
+
+            options.items = items2;
+            //options.cursorItem = 0;
+            options.buttons = buttons;
+            options.hasButtons = primitives.common.Enabled.True;
+            options.hasSelectorCheckbox = primitives.common.Enabled.False;
+            options.pageFitMode = primitives.common.PageFitMode.None;
+            //options.arrowsDirection = primitives.common.GroupByType.Children;
+            options.linesWidth = 2;
+            options.linesColor = primitives.common.Colors.Black;
+            options.normalItemsInterval = 20;
+            options.lineLevelShift = 30;
+            // options.normalItemsInterval = 60;
+            //options.lineItemsInterval = 40;
+            options.onButtonClick = function (e, data) {
+                if (data.name == "add") {
+                    $('#divAdd').data("id", data.context.id);
+                    $('#divAdd').data("name", data.context.title);
+                    toggleDivAdd()
+                }
+
+                if (data.name == "delete") {
+                    removeById(data.context.id);
+
+                    $("#basicdiagram").famDiagram({
+                        items: items2
+                    });
+                    $("#basicdiagram").famDiagram("update", /*Refresh: use fast refresh to update chart*/ primitives.orgdiagram.UpdateMode.Refresh);
+                }
+
+                //var message = "User clicked '" + data.context.spouses + "' button for item '" + data.context + "'.";
+                //var i = findPartnerId(data.context.id);
+
+                //alert(i);
+            };
+            //options.onHighlightChanged = function (e, data) {
+            //    var message = (data.context != null) ? "User hovers mouse over item <b>'" + data.context.title + "'</b>." : "";
+            //    alert(message);
+            //};
+
+            $("#basicdiagram").famDiagram(options);
+        }
+
+
+
+        function genPartner(id, name) {
+            var partner = {
+                id: items2.length + 1
+                    , itemTitleColor: primitives.common.Colors.Pink
+                    , spouses: [id]
+                    , title: "Partner (" + name + ')'
+                    , description: "..."
+                    , image: "/imagesTest/a.jpg"
+            }
+            return partner;
+        }
+
+        function genChild(id, name) {
+            // หาว่ามีคู่่มั้ย หาตัวเองก่อนถ้าไม่มี หาคนอื่นที่ผูกกับบเรา ถ้าไม่เจอเลยไม่มีคู่ไง
+            var idParner = findPartnerId(id);
+
+            var child = {
+                id: items2.length + 1
+                    , title: "child (" + name + ')'
+                    , description: "..."
+                    , image: "/imagesTest/a.jpg"
+                    , parents: [id, idParner]
+            }
+            return child;
+        }
+
+
+        function genRelatives(id, name) {
+            var obj = findById(id);
+
+            var relatives = {
+                id: items2.length + 1
+                    , title: "Relative (" + name + ')'
+                    , description: "..."
+                    , image: "/imagesTest/a.jpg"
+                    , parents: obj.parents
+            }
+            return relatives;
+        }
+
+      
+
+        function findPartnerId(id) {
+            var idPartner = null;
+
+            //ตัวเองมี spouses มั้ย, หรือ เป็น spouses ของใคร
+            var obj = items2.filter(function (o) {
+                if (o.id === id & o.spouses != null) {
+
+                    return o;
+                }
+                else {
+                    return null;
+                }
+            });
+            idPartner = obj[0] == null ? null : obj[0].spouses;
+
+            if (idPartner == null) {
+                var obj = items2.filter(function (o) {
+                    if (o.spouses != null) {
+                        var idSp = o.spouses.filter(function (s) {
+                            if (s == id) {
+                                return s;
+                            }
+                        });
+
+                        if (idSp.length > 0) {
+                            return o;
+                        }
+                    }
+                });
+                idPartner = obj[0] == null ? null : obj[0].id;
+            }
+
+            return idPartner;
+        }
+
+        function findById(id) {
+            var obj = items2.filter(function (o) {
+                if (o.id === id) {
+                    return o;
+                }
+            });
+            return obj[0];
+        }
+
+        function removeById(id) {
+            var newItem2 = items2.filter(function (o) {
+                return o.id !== id;
+            });
+
+            items2 = newItem2;
+        }
+
+        function genParent(id, name) {
+            // สร้างพ่อ, update id ที่ส่งเข้ามาให้มี parent
+
+            var parent = {
+                id: items2.length + 1
+                    , title: "Parent (" + name + ')'
+                    , description: "..."
+                    , image: ""
+            }
+
+            updatePropertyByid(id, "parents", [parent.id])
+
+            return parent;
+        }
+
+        function updatePropertyByid(id, proName, proVal) {
+            for (var i = 0; i < items2.length; i++) {
+                if (items2[i]["id"] === id) {
+                    items2[i][proName] = proVal;
+                }
+            }
+            //$.each(items2, function (i, value) {
+            //    if (value.id==id) {
+            //        value[proName] = proVal;
+            //    }
+            //});
+        }
+
+
+        function toggleDivAdd() {
+            if ($('#divAdd').css('display') == 'none') {
+                $("#divAdd").show();
+            }
+            else {
+                $("#divAdd").hide();
+            }
+        }
+
+
+    </script>
+
+</head>
+<body>
+    <div id="divAdd" style="display: none">
+        <input id="btPartner" type="button" value="เพิ่มคู่" />
+        <input id="btChild" type="button" value="เพิ่มลูก" />
+        <input id="btRelatives" type="button" value="เพิ่มพี่น้อง" />
+        <input id="btParent" type="button" value="เพิ่มพ่อ" />
+    </div>
+      <input id="btTestAjax" type="button" value="ลองเรียก" />
+    <div id="basicdiagram" style="width: auto; height: 680px; border-style: dotted; border-width: 1px;" />
+
+
+</body>
+
+</html>

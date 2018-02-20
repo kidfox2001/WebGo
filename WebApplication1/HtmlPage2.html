@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    <script src="scripts/jquery-1.9.1.min.js"></script>
+    <!--<script src="./scripts/jquery.orgchart.min.js"></script>-->
+    <script src="scripts/jquery.orgchart.js"></script>
+
+    <link rel="stylesheet" href="./styles/jquery.orgchart.css" />
+
+    <style>
+        .long-name {
+            font-size: 12px;
+        }
+
+        div.orgChart div.node.level0,
+        div.orgChart div.node.level2 {
+            background-color: rgb(244, 227, 116);
+        }
+    </style>
+
+    <script>
+        $(function () {
+            //$("#dvHead").text(" test ");
+
+            $("#organisation").orgChart({ container: $("#main") });
+        });
+    </script>
+</head>
+
+<body>
+    <div style="background-color: beige;" id="dvHead">ter test </div>
+
+    <div >
+        <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+        <ul id="organisation" style="display:none">
+            <li>Dad<adjunct>Mom</adjunct>
+                <ul>
+                    <li>ter</li>
+                    <li>moo</li>
+                    <li>nui</li>
+                </ul>
+            </li>
+            
+            <!--<li>
+                <adjunct>Alfred</adjunct>
+                <em>Batman</em>
+                <ul>
+                    <li>Batman Begins<br />
+                        <ul>
+                            <li>Ra's Al Ghul</li>
+                            <li>Carmine Falconi</li>
+                        </ul>
+                    </li>
+                    <li>The Dark Knight<br />
+                        <ul>
+                            <li>Joker</li>
+                            <li>Harvey Dent</li>
+                        </ul>
+                    </li>
+                    <li>The Dark Knight Rises<br />
+                        <ul>
+                            <li>Bane
+                                <ul>
+                                    <li>ter</li>
+                                    <li>near</li>
+                                </ul>
+                            </li>
+                            
+                            <li>Talia Al Ghul</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>-->
+        </ul>
+
+    </div>
+
+    <div id="main">
+        </div>
+
+    <!--<div id="content">
+
+        <h1>JQuery/CSS Organisation Chart</h1>
+
+        
+
+        <div class="text">
+            <h2>JQuery</h2>
+            <pre>
+$("#organisation").orgChart({container: $("#main")});
+                </pre>
+        </div>
+
+    </div>-->
+
+</body>
+</html>

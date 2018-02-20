@@ -1,0 +1,423 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="scripts/jquery-1.9.1.min.js"></script>
+    <script src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="scripts/primitives.min.js"></script>
+    <script src="scripts/jqGlobal.js"></script>
+    <script src="scripts/treeControl.js"></script>
+    <script src="scripts/jquery.blockUI.js"></script>
+    <script src="scripts/view.js"></script>
+    <script src="scripts/json_parse.js"></script>
+    <script src="scripts/jquery.uniform.min.js"></script>
+   <!-- <script src="scripts/Primitives.js"></script>-->
+
+    <link href="styles/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" />
+    <link href="styles/primitives.latest.css" rel="stylesheet" />
+    <link href="styles/uniform.default.min.css" rel="stylesheet" />
+
+    <script>
+        var imageMen = "/imagesTest/men.png";
+        var imageWomen = "/imagesTest/women.png";
+        var colorSick = primitives.common.Colors.Orange;
+        var colorWomen = primitives.common.Colors.Pink;
+        items = [
+                           {
+                               id: "0"
+                               , spouses: [3]
+                               , title: "จิรายุ เกาะแก้ว"
+                               , first_name: "จิรายุ"
+                               , last_name: "เกาะแก้ว"
+                               , age: 88
+                               , sex: "male"
+                               , year: "2559"
+                               , month: "4"
+                               , day: "30"
+                               , description: "อายุ 44, เบอร์โทร:(123) 456-78-90"
+                               , image: "/imagesTest/m1.jpg"
+                               , templateName: "contactTemplate"
+                               , person_alive: "0"
+                               , is_sick: "sick"
+                           },
+                           {
+                               id: "1"
+                               , parents: [0, 3]
+                               , title: "นุ่น เมืองสิง"
+                               , first_name: "นุ่น"
+                               , last_name: "เมืองสิง"
+                               , age: 22
+                               , sex: "female"
+                               , is_sick: "sick"
+                               , person_alive: "2"
+                               , description: "อายุ 22"
+                               , image: "/imagesTest/w2.jpg"
+                               , groupTitle: "ติดเชื้อ"
+                               , itemTitleColor: colorWomen
+                               , groupTitleColor: colorSick
+                               , badge: "1"
+                                , templateName: "contactTemplate"
+                                , person_alive: "1"
+                                 , is_sick: "sick"
+                           },
+                           {
+                               id: "2"
+                               , parents: [0, 3]
+                               , title: "สิงโต เกาะแก้ว"
+                               , first_name: "สิงโต"
+                               , last_name: "เมืองสิง"
+                               , age: 12
+                               , description: "อายุ 12"
+                                , sex: "male"
+                               , image: "/imagesTest/a.jpg"
+                                , templateName: "contactTemplate"
+                                 , person_alive: "1"
+                           },
+                           {
+                               id: "3"
+                               , title: "อั้ม เกาะแก้ว"
+                                 , first_name: "อั้ม"
+                               , last_name: "เมืองสิง"
+                               , age: 40
+                               , description: "อายุ 40, เบาหวาน, ความดันสูง"
+                               , image: "/imagesTest/w1.jpg"
+                                , age: 22
+                               , groupTitle: "ติดเชื้อ"
+                               , sex: "female"
+                               , itemTitleColor: colorWomen
+                               , groupTitleColor: colorSick
+                                , templateName: "contactTemplate"
+                                 , is_sick: "un_sick"
+                           },
+                           {
+                               id: "4"
+                               , title: "หลุยส์ เมืองสิง"
+                                , first_name: "หลุยส์"
+                               , last_name: "เมืองสิง"
+                               , age: 23
+                                , spouses: [1]
+                               , parents: [5, 6]
+                               , description: "อายุ 23"
+                               , image: imageMen
+                                , templateName: "contactTemplate"
+                                   , is_sick: "un_sick"
+                           },
+                           {
+                               id: "5"
+                                , spouses: [6]
+                                , title: "ณเดชน์ เมืองสิง"
+                                , first_name: "ณเดชน์"
+                               , last_name: "เมืองสิง"
+                               , age: 100
+                                , description: "อายุ 65"
+                                , image: imageMen
+                                , templateName: "contactTemplate"
+                           },
+                            {
+                                id: "6"
+                                , title: "วุ้นเส้น เมืองสิง"
+                                , first_name: "วุ้นเส้น"
+                               , last_name: "เมืองสิง"
+                               , age: 100
+                                  , sex: "female"
+                                , description: "อายุ 100"
+                                , image: imageWomen
+                                , itemTitleColor: colorWomen
+                                 , templateName: "contactTemplate"
+                            },
+                            {
+                                id: 57
+                                , parents: ["4", "1"]
+                                , title: "1"
+                                , description: "1"
+                                , age: 1
+                                , image: imageMen
+                                , groupTitle: "ติดเชื้อ"
+                                , groupTitleColor: "orange"
+                                 , templateName: "contactTemplate"
+                            },
+                            {
+                                id: 58
+                                , parents: ["4", "1"]
+                                , title: "2"
+                                , description: "2"
+                                , age: 2
+                                , image: imageMen
+                                , groupTitle: "ติดเชื้อ"
+                                , groupTitleColor: "orange"
+                                 , templateName: "contactTemplate"
+                            },
+                            {
+                                id: 55
+                                , spouses: [58]
+                                , title: "แฟน 2"
+                                , description: "แฟน 2"
+                                , age: 88
+                                , image: imageMen
+                                , groupTitle: "ติดเชื้อ"
+                                , groupTitleColor: "orange"
+                                 , templateName: "contactTemplate"
+                            },
+                            {
+                                id: 59
+                                , parents: ["4", "1"]
+                                , title: "3"
+                                , description: "3"
+                                , image: imageWomen
+                                    , sex: "female"
+                                , age: 3
+                                , groupTitleColor: colorSick
+                                , itemTitleColor: colorWomen
+                                 , templateName: "contactTemplate"
+                            },
+                            {
+                                id: 60
+                                , parents: ["4", "1"]
+                                , title: "4"
+                                , description: "4"
+                                    , sex: "male"
+                                , age: 4
+                                , image: imageMen
+                                , groupTitleColor: colorSick
+                                 , templateName: "contactTemplate"
+                            },
+                            {
+                                id: 56
+                                , parents: ["4", "1"]
+                                , title: "5"
+                                , description: "5"
+                                    , sex: "male"
+                                , age: 5
+                                , image: imageMen
+                                , groupTitleColor: colorSick
+                                 , templateName: "contactTemplate"
+                            },
+                           
+                            {
+                                id: "s2"
+                                , parents: ["2"]
+                                , title: "s1"
+                                , description: "1"
+                                , age: 1
+                                , image: imageMen
+                                , groupTitle: "ติดเชื้อ"
+                                , groupTitleColor: "orange"
+                                 , templateName: "contactTemplate"
+                            },
+                             //{
+                             //    id: "s2"
+                             //   , spouses: ["88"]
+                             //   , title: "แฟน s1"
+                             //   , description: "แฟน"
+                             //   , age: 88
+                             //   , image: imageMen
+                             //   , groupTitle: "ติดเชื้อ"
+                             //   , groupTitleColor: "orange"
+                             //    , templateName: "contactTemplate"
+                             //},
+                            {
+                                id: "s3"
+                                , parents: ["2"]
+                                , title: "s2"
+                                , description: "2"
+                                , age: 2
+                                , image: imageMen
+                                , groupTitle: "ติดเชื้อ"
+                                , groupTitleColor: "orange"
+                                 , templateName: "contactTemplate"
+                            },
+                              //{
+                              //    id: "s4"
+                              //  , spouses: ["90"]
+                              //  , title: "แฟน s2"
+                              //  , description: "แฟน"
+                              //  , age: 88
+                              //  , image: imageMen
+                              //  , groupTitle: "ติดเชื้อ"
+                              //  , groupTitleColor: "orange"
+                              //   , templateName: "contactTemplate"
+                              //},
+                            {
+                            id: "s1"
+                            , parents: ["2"]
+                            , title: "s3"
+                            , description: "3"
+                            , image: imageWomen
+                                , sex: "female"
+                            , age: 3
+                            , groupTitleColor: colorSick
+                            , itemTitleColor: colorWomen
+                             , templateName: "contactTemplate"
+                            },
+
+
+        ];
+
+        $(function () {
+
+            var items3 = [{
+                "id": 65,
+                "title": "คุณาภาส  คงกิติมานนท์",
+                "description": "Sex: male Age: 24",
+                "groupTitle": "ผู้ป่วย",
+                "groupTitleColor": "orange",
+                "parents": [66, 67],
+                "spouses": [69]
+            }, {
+                "id": 66,
+                "title": "ทศพล คงกิติมานนท์",
+                "description": "Sex: male Age: 80"
+            }, {
+                "id": 67,
+                "title": "สุนันท์ คงกิติมานนท์",
+                "description": "Sex: female Age: 24",
+                "itemTitleColor": "pink",
+                "groupTitle": "ผู้ป่วย",
+                "groupTitleColor": "orange"
+            }, {
+                "id": 69,
+                "title": "พลอย เฌอมาลย์",
+                "description": "Sex: female Age: 24",
+                "itemTitleColor": "pink",
+                "groupTitle": "ผู้ป่วย",
+                "groupTitleColor": "orange"
+            }]
+
+            $("#btTestAjax").click(function () {
+                //$("#basicdiagram").cancelPersonDetail();
+
+                var parents_id = [66, 67];
+                var sons_id = [];
+                var spouses_id = [80];
+                var relatives_id = [65, 68];
+                var sex = "male";
+                var age = 24;
+                var first_name = "Skykick ";
+                var last_name = "Ranger";
+                var type_of_relationship = "ลูก";
+                var person_citizenID = "1103300053888";
+                var person_alive = "1";
+                var person_birth_date = "1990-10-11";
+                $.ajax({
+                    url: 'http://www.cavaros.com/health_system/public/add_person_api',
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    cache: false,
+                    type: 'post',
+                    dataType: 'json',
+                    data: "sex=" + sex + "&age=" + age + "&first_name=" + first_name + "&last_name=" + last_name +
+                        "&parents_id=" + JSON.stringify(parents_id) + "&spouses_id=" + JSON.stringify(spouses_id) +
+                        "&sons_id=" + JSON.stringify(sons_id) + "&relatives_id=" + JSON.stringify(relatives_id) +
+                        "&type_of_relationship=" + type_of_relationship + "&person_citizenID=" + person_citizenID +
+                        "&person_alive=" + person_alive + "&person_birth_date=" + person_birth_date,
+                    success: function (msg) {
+                        $('#basicdiagram').html(msg['status'] + "<br>" + msg['message']);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) { //Add these parameters to display the required response
+                        alert(xhr.status);
+                        alert(xhr.responseText);
+                    }
+                });
+
+                //$.ajax({
+                //    url: 'http://www.cavaros.com/health_system/public/get_tree/1103300053746',
+                //    dataType: 'jsonp',
+                //    type: 'GET',
+                //    jsonpCallback: "callback",
+                //    contentType: "application/json",
+                //    success: function (data, textStatus, jQxhr) {
+
+                //        //console.log(JSON.stringify(data.person));
+                //        //console.log(items);
+                //        var items2 = data.person;
+                //        //console.log(items);
+                //        $("#basicdiagram").treeControl({ data: items2 });
+                //    }, error: function (data, textStatus, jQxhr) {
+
+                //    },
+                //});
+
+                //$.get("www.cavaros.com/health_system/public/get_tree", function (data, status) {
+                //    alert("Data: " + data + "\nStatus: " + status);
+                //});
+
+
+                //$.ajax({
+                //    url: 'http://www.cavaros.com/health_system/public/get_tree/1103300053746',
+                //    dataType: 'text',
+                //    type: 'get',
+                //    contentType: 'application/json',
+                //    crossDomain: true,
+                //    dataType: 'jsonp',
+                //    success: function (data, textStatus, jQxhr) {
+                //        console.log(JSON.stringify(data));
+                //    }
+                //})
+            });
+
+            //$.ajax({
+            //    url: 'http://www.cavaros.com/health_system/public/get_tree/1103300053746',
+            //    dataType: 'text',
+            //    type: 'get',
+            //    contentType: 'application/json',
+            //    crossDomain: true,
+            //    dataType: 'jsonp',
+            //    jsonpCallback: 'callbackName',
+            //    success: function (data, textStatus, jQxhr) {
+            //        //console.log(data["person"].id);
+            //        $("#basicdiagram").treeControl({ data: data["person"] });
+            //    }
+
+            //});
+
+
+            $("#btnTestFadeOut").bind("click", function () {
+                $("#divUndoDelelte").fadeOut("slow");
+            })
+
+            $("#btnTestFadeIn").bind("click", function () {
+                $("#divUndoDelelte").fadeIn("slow");
+            })
+
+            $("#basicdiagram").treeControl(
+                {
+                    data: items,
+                    mainId: "1",
+                    mainReId: "1",
+                    onCancelPersonDetail: function () {
+                        $.unblockUI();
+                    },
+                    onOkPersonDetail: function (obj) {
+                        $("#basicdiagram").reCreate(obj);
+                        $.unblockUI();
+                    }
+                    ,
+                    onReturnPage: function () {
+                        alert("ย้อนกลับ");
+                    }
+                });
+
+
+            $uniformed = $("#btnReturn,#btnUndoDelete").not(".skipThese");
+            $uniformed.uniform();
+            $("#uniform-btnReturn").css("position", "fixed");
+        })
+
+
+
+    </script>
+</head>
+<body>
+    <!--<div style="position:fixed; ">
+        <div>
+            <input id="btnReturn" type="button" value="ย้อนกลับ" style="width:120px; position:relative;" /></div>
+        <div style="position:relative; left:150px">
+            <input id="btnUndoDelete" type="button" value="ยกเลิกการลบ" style="width:120px; position:relative;"/>
+        </div>
+    </div>-->
+     
+    <div id="basicdiagram" style="width: auto; height: 100vh; border-style: dotted; border-width: 1px;">
+    </div>
+    <input id="btnTestFadeOut" type="button" value="testOut" style="width:120px; position:relative;" />
+       <input id="btnTestFadeIn" type="button" value="testIn" style="width:120px; position:relative;" />
+</body>
+</html>

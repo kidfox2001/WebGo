@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="scripts/jquery-1.9.1.min.js"></script>
+    <script src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="scripts/jquery.uniform.min.js"></script>
+
+    <link href="styles/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" />
+    <link href="styles/uniform.default.min.css" rel="stylesheet" />
+
+    <script>
+        var MatchDiseases =
+            [
+                {
+                    diseases: "Diseases1",
+                    result: ["pyrexia > 37.5", "lymphadenopathy", "anorexia"]
+                },
+                {
+                    diseases: "Diseases2",
+                    result: ["Photosensitivity rash", "Maculopapular rash", "Toxic epidermal necrolysis"]
+                }, 
+                {
+                    diseases: "Diseases3",
+                    result: ["Arthritis", "Hemolytic anemia"]
+                }
+            ]
+
+        var listResults =
+            [
+            {
+                group: "General",
+                result: ["pyrexia > 37.5", "weight loss > 5%", "lymphadenopathy", "splenomegaly", "anorexia"]
+            },
+            {
+                group: "Mucocutaneous",
+                result: ["Photosensitivity rash", "Maculopapular rash", "Toxic epidermal necrolysis", "Malar rash", "Discoid rash", "Hypertrophic lupus"]
+            },
+            {
+                group: "Musculoskeletal",
+                result: ["Arthritis", "Arthralgia", "Myalgia", "Myositis", "1 proximal muscle weakness", "Elevated creatinine kinase", "tenosynovitis"]
+            },
+            {
+                group: "Hematology",
+                result: ["Hemolytic anemia", "Leukopenia", "Lymphopenia", "Thrombocytopenia", "coombs test", "Thrombotic thromb"]
+            }
+
+            ]
+        var listResult = [];
+        var listCheckBox = [];
+        var listDiseases = [];
+
+        $(function () {
+            loadTestResult(listResults);
+            $uniformed = $(".styleThese").find("input").not(".skipThese");
+            $uniformed.uniform();
+            $("#txtSearch").bind("focus", clearDefaultTextSearch);
+            $("#txtSearch").bind("blur", showDefaultTextSearch);
+            $("#txtSearch").bind("input", function () {
+                searchResult($(this).val());
+            });
+            $("#txtSearch").ready(showDefaultTextSearch);
+
+        });
+
+        function showDefaultTextSearch() {
+            if ($("#txtSearch").val() == "") {
+                $("#txtSearch").val("Enter Query Text");
+            }
+        };
+
+        function clearDefaultTextSearch() {
+            if ($("#txtSearch").val() == "Enter Query Text") {
+                $("#txtSearch").val("");
+            }
+        };
+
+        function loadTestResult(datas) {
+            var accordion = $('<div></div>').attr("id", "accordion");
+
+            $.each(datas, function (key, value) {
+                var header = $('<h3></h3>');
+                header.text(value.group);
+                var detail = $('<div></div>');
+
+                $.each(value.result, function (key, value) {
+                    listResult.push(value);
+                    var checkbox = $('<input />').attr("type", "checkbox");
+                    checkbox.attr("value", value);
+                    checkbox.bind("click", keepSelect);
+                    detail.append(checkbox);
+                    var span = $('<span></span>').text(value);
+                    detail.append(span);
+                    var br = $('<br />');
+                    detail.append(br);
+                })
+                accordion.append(header).append(detail);
+            })
+
+            $("#DivLeftContainerInner").append(accordion);
+            accordion.accordion({ collapsible: true, active: false });
+        };
+
+        function accordionExpandAll() {
+            var contentAreas = $('#accordion .ui-accordion-content ').hide();
+            // when panels open or close, check to see if they're all open
+            contentAreas.on({
+                // whenever we open a panel, check to see if they're all open
+                // if all open, swap the button to collapser
+                show: function () {
+                    var isAllOpen = !contentAreas.is(':hidden');
+                    if (isAllOpen) {
+                        //expandLink.text('Collapse All')
+                        //    .data('isAllOpen', true);
+                    }
+                },
+                // whenever we close a panel, check to see if they're all open
+                // if not all open, swap the button to expander
+                hide: function () {
+                    var isAllOpen = !contentAreas.is(':hidden');
+                    if (!isAllOpen) {
+                        expandLink.text('Expand all')
+                        .data('isAllOpen', false);
+                    }
+                }
+            });
+
+            var isAllOpen = $(this).data('isAllOpen');
+
+            contentAreas[isAllOpen ? 'hide' : 'show']()
+                .trigger(isAllOpen ? 'hide' : 'show');
+        };
+
+        function removeAccordion() {
+            $("#accordion").remove();
+        }
+
+        function searchResult(text) {
+            if (text !== "") {
+                var listResultFound = [];
+                var newFoundRsult = [];
+                $.each(listResult, function (key, value) {
+                    if (value.toUpperCase().indexOf(text.toUpperCase()) > -1) {
+                        listResultFound.push(value);
+                    }
+                })
+
+                $.each(listResults, function (key, value) {
+                    var foundItems = value.result;
+                    foundItems = foundItems.filter(function (el) {
+                        return listResultFound.indexOf(el) !== -1
+                    });
+
+                    if (foundItems.length > 0) {
+                        var json = {
+                            group: value.group,
+                            result: foundItems
+                        }
+                        newFoundRsult.push(json);
+                    }
+                })
+                removeAccordion();
+                loadTestResult(newFoundRsult);
+                accordionExpandAll();
+            }
+            else {
+                removeAccordion();
+                loadTestResult(listResults);
+            }
+
+            manageCheck();
+        };
+
+        function keepSelect() {
+            var span = $(this).parent();
+            if ($(span).attr("class") == "checked") {
+                //ไม่เลือก
+                var index = listCheckBox.indexOf($(this).attr("value"));
+                if (index >= 0) {
+                    listCheckBox.splice(index, 1);
+                }
+            }
+            else {
+                //เลือก
+                listCheckBox.push($(this).attr("value"));
+            }
+            checkDiseases();
+            //alert(listCheckBox);
+        };
+
+        function manageCheck() {
+            $uniformed = $(".styleThese").find("input:checkbox").not(".skipThese");
+            $uniformed.uniform();
+            var allCheckbox = $("input:checkbox");
+            $.each(allCheckbox, function (key, value) {
+                // วนทุก checkbox
+                var index = listCheckBox.indexOf($(value).attr("value"));
+                if (index >= 0) {
+                    // ถ้าเจอในค่าที่เลือกไว้ปรับ class checked
+                    $(value).parent().attr("class", "checked");
+                    $(value).attr("checked", true);
+                }
+            })
+        };
+
+        function checkDiseases() {
+            var divDiseases = $("#DivRightDetail")
+            var listDiseases = [];
+            $.each(MatchDiseases, function (k, v) {
+                var foundResult = 0;
+                $.each(v.result, function (k, v) {
+                    var index = listCheckBox.indexOf(v);
+                    if (index >= 0) {
+                        foundResult = foundResult +1;
+                    }
+                })
+                if (foundResult == v.result.length) {
+                    listDiseases.push(v.diseases);
+                }
+            })
+            divDiseases.html("");
+            listDiseases.sort();
+            $.each(listDiseases, function (k, v) {
+                var span = $('<span></span>').text(v);
+                divDiseases.append(span);
+                var br = $('<br />');
+                divDiseases.append(br);
+            })
+        };
+
+    </script>
+
+    <style type="text/css">
+        #DivContainer
+        {
+            width: 100%;
+        }
+
+        #DivLeft
+        {
+            background-color: #7FFFD4;
+            float: left;
+            width: 80%;
+        }
+
+        #DivLeftContainerInner
+        {
+            padding: 8px;
+        }
+
+        #DivRight
+        {
+            width: 19%;
+            float: right;
+            border-color: #d23660;
+            border-width: 2px;
+            border-style: solid;
+        }
+
+        #DivRightHeader
+        {
+            height: 33px;
+            color: #FFF;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 30px;
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d9516a+0,d2364b+50,a80011+51,e52d39+100 */
+            background: #d9516a; /* Old browsers */
+            background: -moz-linear-gradient(top, #d9516a 0%, #d2364b 50%, #a80011 51%, #e52d39 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #d9516a 0%,#d2364b 50%,#a80011 51%,#e52d39 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, #d9516a 0%,#d2364b 50%,#a80011 51%,#e52d39 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d9516a', endColorstr='#e52d39',GradientType=0 ); /* IE6-9 */
+        }
+
+        #DivRightDetail
+        {
+            FONT-SIZE: large;
+            LINE-HEIGHT: 1.5;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body class="styleThese">
+    <div id="DivContainer">
+        <div id="DivLeft">
+            <div id="DivLeftContainerInner">
+                <div id="DivTextSearch">
+                    <input id="txtSearch" type="text" style="width: 518px" />
+                    <img src="images/Search.png" style="width: 17px; height: 14px" />
+                </div>
+                <h3>Please select the categories and indicators by clicking the category buttons below to expand. >></h3>
+                <!--<div id="accordion">
+                </div>-->
+            </div>
+        </div>
+
+        <div id="DivRight">
+            <div id="DivRightHeader">
+                Matched Diseases
+            </div>
+            <div id="DivRightDetail">
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>
