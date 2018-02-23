@@ -24,7 +24,13 @@
             <div id="slide-runner">
                 <a href="javascript:void(0)" id="video1"><img id="slide-img-1" src="images/DW/slider/slide-img-1.jpg" class="slide" alt="" /></a>
                 <a href="javascript:void(0)" id="video2"><img id="slide-img-2" src="images/DW/slider/slide-img-2.jpg" class="slide" alt="" /></a>
-                <a href=""><img id="slide-img-3" src="images/DW/slider/slide-img-3.jpg" class="slide" alt="" /></a>
+                <a href="" class="videoX">
+                    <span></span>
+                    <img id="slide-img-3" src="images/DW/slider/slide-img-3.jpg" class="slide" alt="" />
+                </a>
+
+
+
                 <div id="slide-controls">
                     <p id="slide-nav"></p>
                 </div>
@@ -41,13 +47,71 @@
                 { "id": "slide-img-3", "client": "nature beauty", "desc": "" }
             ];
     </script>
-   
 
+    <style type="text/css">
+        .videos img {
+            /*width: 100%;*/
+            /*height: auto;*/
+        }
 
+        a.videoX {
+            float: left;
+            position: relative;
+        }
 
+            a.videoX span {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                background: url("images/play-btn.png") no-repeat;
+                background-position: 50% 50%;
+                background-size: 300%;
+            }
+
+        @media screen and (max-width: 480px) {
+            a.videoX span {
+                background-size: 400%;
+            }
+        }
+    </style>
+
+    <!--<a href="" class="video">
+        <span></span>
+        <img id="slide-img-3" src="images/DW/slider/slide-img-3.jpg" class="slide" alt="" />
+    </a>-->
+
+    <style type="text/css">
+        .video-thumbnail {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            margin: 30px;
+        }
+
+            .video-thumbnail:before {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                -webkit-transform: translate(-50%, -50%);
+                content: url("images/play-btn.png");
+                font-family: FontAwesome;
+                font-size: 100px;
+                color: #fff;
+                opacity: 0.8;
+                text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .video-thumbnail:hover:before {
+                color: #eee;
+            }
+    </style>
+
+    <!--<div class="video-thumbnail">
+        <a href="javascript:void(0)" id="video1"><img id="slide-img-1" src="images/DW/slider/slide-img-1.jpg" class="slide" alt="" /></a>
+    </div>-->
 
     <!--videopopup-->
-
     <!--<a href="javascript:void(0)" id="video1">-- open video --</a>
     <a href="javascript:void(0)" id="video2">-- open video --</a>-->
 
@@ -56,9 +120,9 @@
             <video autoplay id="v1" loop controls>
                 <source src="https://www.rmp-streaming.com/media/bbb-360p.mp4" type="video/webm">
             </video>
-
         </div>
     </div>
+
     <script type="text/javascript">
         $(function () {
             $('#vidBox1').VideoPopUp({
