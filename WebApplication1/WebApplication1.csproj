@@ -64,6 +64,7 @@
     <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\magnific-popup.css" />
     <Content Include="css\style-slideshow.css" />
     <Content Include="css\videopopup.css" />
     <Content Include="HtmlPage1.html" />
@@ -89,6 +90,7 @@
     <Content Include="scripts\jquery-ui-1.9.2.custom.min.js" />
     <Content Include="scripts\jquery.blockUI.js" />
     <Content Include="scripts\jquery.jOrgChart.js" />
+    <Content Include="scripts\jquery.magnific-popup.min.js" />
     <Content Include="scripts\jquery.uniform.min.js" />
     <Content Include="scripts\json_parse.js" />
     <Content Include="scripts\Primitives.js" />

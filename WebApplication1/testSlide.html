@@ -4,11 +4,13 @@
     <script src="scripts/jquery-1.9.1.min.js"></script>
     <script src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
     <script src="js/scripts-slideshow.js"></script>
-    <script src="js/videopopup.js"></script>
+    <!--<script src="js/videopopup.js"></script>-->
+    <script src="scripts/jquery.magnific-popup.min.js"></script>
 
     <link href="styles/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" />
     <link href="css/style-slideshow.css" rel="stylesheet" />
-    <link href="css/videopopup.css" rel="stylesheet" />
+    <!--<link href="css/videopopup.css" rel="stylesheet" />-->
+    <link href="css/magnific-popup.css" rel="stylesheet" />
 
     <title></title>
 </head>
@@ -22,10 +24,9 @@
 
             </div>
             <div id="slide-runner">
-                <a href="javascript:void(0)" id="video1"><img id="slide-img-1" src="images/DW/slider/slide-img-1.jpg" class="slide" alt="" /></a>
-                <a href="javascript:void(0)" id="video2"><img id="slide-img-2" src="images/DW/slider/slide-img-2.jpg" class="slide" alt="" /></a>
-                <a href="" class="videoX">
-                    <span></span>
+                <a href="http://www.youtube.com/watch?v=0O2aH4XLbto" id="video1"><img id="slide-img-1" src="images/DW/slider/slide-img-1.jpg" class="slide" alt="" /></a>
+                <a href="Video/movie1.mp4" id="video2"><img id="slide-img-2" src="images/DW/slider/slide-img-2.jpg" class="slide" alt="" /></a>
+                <a href="" >
                     <img id="slide-img-3" src="images/DW/slider/slide-img-3.jpg" class="slide" alt="" />
                 </a>
 
@@ -107,15 +108,40 @@
             }
     </style>
 
+    <!--jquery.magnific-popup.min.js-->
+
+    <!--<a class="popup-youtube" href="http://www.youtube.com/watch?v=0O2aH4XLbto">Open YouTube video</a><br>
+    <a class="popup-vimeo" href="https://vimeo.com/45830194">Open Vimeo video</a><br>
+    <a class="popup-gmaps" href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&amp;hl=en&amp;t=v&amp;hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom">Open Google Map</a>-->
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#video1,#video2').magnificPopup({
+                disableOn: 700,
+                type: 'iframe',
+                mainClass: 'mfp-fade',
+                removalDelay: 160,
+                preloader: false,
+
+                fixedContentPos: false
+            });
+        });
+    </script>
+
+    
+
+
     <!--<div class="video-thumbnail">
         <a href="javascript:void(0)" id="video1"><img id="slide-img-1" src="images/DW/slider/slide-img-1.jpg" class="slide" alt="" /></a>
     </div>-->
+
 
     <!--videopopup-->
     <!--<a href="javascript:void(0)" id="video1">-- open video --</a>
     <a href="javascript:void(0)" id="video2">-- open video --</a>-->
 
-    <div id="vidBox1">
+    <!--<div id="vidBox1">
         <div id="videCont">
             <video autoplay id="v1" loop controls>
                 <source src="https://www.rmp-streaming.com/media/bbb-360p.mp4" type="video/webm">
@@ -132,10 +158,10 @@
                 idvideo: "v1"
             });
         });
-    </script>
+    </script>-->
 
 
-    <div id="vidBox2">
+    <!--<div id="vidBox2">
         <div id="videCont">
             <video autoplay id="v2" loop controls>
                 <source src="Video/movie1.mp4" type="video/webm">
@@ -152,7 +178,7 @@
                 idvideo: "v2"
             });
         });
-    </script>
+    </script>-->
 
 
 

@@ -23,3 +23,9 @@ C:\test\WebTree\WebApplication1\obj\Release\WebApplication1.csprojResolveAssembl
 C:\test\WebTree\WebApplication1\obj\Release\WebApplication1.csproj.CoreCompileInputs.cache
 C:\test\WebTree\WebApplication1\obj\Release\WebApplication1.dll
 C:\test\WebTree\WebApplication1\obj\Release\WebApplication1.pdb
+D:\Code Git\WebTree\WebApplication1\bin\WebApplication1.dll.config
+D:\Code Git\WebTree\WebApplication1\bin\WebApplication1.dll
+D:\Code Git\WebTree\WebApplication1\bin\WebApplication1.pdb
+D:\Code Git\WebTree\WebApplication1\obj\Release\WebApplication1.csprojResolveAssemblyReference.cache
+D:\Code Git\WebTree\WebApplication1\obj\Release\WebApplication1.dll
+D:\Code Git\WebTree\WebApplication1\obj\Release\WebApplication1.pdb
